@@ -1,0 +1,2 @@
+# m    h dom mon dow   command
+  */5  *  *   *   *    /srv/v2fly/v2stat.py

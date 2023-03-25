@@ -1,0 +1,107 @@
+{
+    "stats": {},
+    "api": {
+        "tag": "api",
+        "services": [
+            "StatsService"
+        ]
+    },
+    "policy": {
+        "levels": {
+            "0": {
+                "statsUserUplink": true,
+                "statsUserDownlink": true
+            }
+        },
+        "system": {
+            "statsInboundUplink": true,
+            "statsInboundDownlink": true,
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+        }
+    },
+    "log": {
+        "loglevel": "none",
+        "type": "Console"
+    },
+    "inbounds": [{
+        "port": TROJANPORT,
+        "listen": "0.0.0.0",
+        "protocol": "trojan",
+        "settings": {
+            "clients": [{
+                "password": "user1pass",
+                "email": "user1",
+                "afterid": 64,
+                "level": 0
+            }, {
+                "password": "user2pass",
+                "email": "user2",
+                "afterid": 64,
+                "level": 0
+            }]
+        },
+        "streamSettings": {
+            "network": "ws",
+            "wsSettings": {
+                "path": "/trojan"
+            }
+        }
+    }
+    }, {
+        "listen": "0.0.0.0",
+        "port": DOKODEMOPORT,
+        "protocol": "dokodemo-door",
+        "settings": {
+            "address": "0.0.0.0"
+        },
+        "tag": "api"
+    }],
+    "outbounds": [{
+        "tag": "proxy",
+        "protocol": "trojan",
+        "settings": {
+            "servers": [{
+                "address": "FOREIGNDOMAIN",
+                "port": 443,
+                "password": "AFOREIGNSERVERUSERPASSWORD",
+                "email": "AFOREIGNSERVERUSER"
+            }]
+        },
+        "streamSettings": {
+            "network": "ws",
+            "security": "tls",
+            "wsSettings": {
+                "path": "/trojan"
+            }
+        }
+    }, {
+        "protocol": "freedom",
+        "tag": "freedom"
+    }, {
+        "protocol": "blackhole",
+        "tag": "blackhole"
+    }],
+    "routing": {
+        "domainStrategy": "IpIfNonMatch",
+        "rules": [{
+            "type": "field",
+            "outboundTag": "freedom",
+            "ip": [
+                "geoip:ir"
+            ]
+        }, {
+            "type": "field",
+            "outboundTag": "freedom",
+            "domain": [
+                "regexp:.*\\.ir$"
+            ]
+        }, {
+            "inboundTag": [
+                "api"
+            ],
+            "outboundTag": "api",
+            "type": "field"
+        }]
+    }
+}

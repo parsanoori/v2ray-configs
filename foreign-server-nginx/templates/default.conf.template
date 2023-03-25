@@ -1,0 +1,13 @@
+#include conf.d/home.conf;
+
+server {
+
+    listen       80;
+    server_name  FOREIGNIP;
+
+
+    location / {
+      root   /usr/share/nginx/html;
+      index  index.html index.htm;
+    }
+}

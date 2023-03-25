@@ -1,0 +1,28 @@
+version: '3'
+services:
+  nginx:
+    image: nginx
+    restart: always
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./templates:/etc/nginx/templates
+      - ./hello:/hello
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - /tmp:/hosttmp
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  certbot:
+    image: certbot/certbot
+    depends_on:
+      - nginx
+    command: >-
+             certonly --reinstall --webroot --webroot-path=/var/www/certbot
+             --email parsanoori01@yahoo.com --agree-tos --no-eff-email
+             -d YOURDOMESTICDOMAIN
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
