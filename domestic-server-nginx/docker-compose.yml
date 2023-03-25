@@ -21,8 +21,8 @@ services:
       - nginx
     command: >-
              certonly --reinstall --webroot --webroot-path=/var/www/certbot
-             --email parsanoori01@yahoo.com --agree-tos --no-eff-email
-             -d YOURDOMESTICDOMAIN
+             --email YOUREMAIL --agree-tos --no-eff-email
+             -d DOMESTICDOMAIN
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
