@@ -8,7 +8,7 @@
 
 ```
 openssl dhparam -out ./domestic-server-nginx/certbot/conf/ssl-dhparams.pem 2048
-openssl dhparam -out ./domestic-server-nginx/certbot/conf/ssl-dhparams.pem 2048
+openssl dhparam -out ./foreign-server-nginx/certbot/conf/ssl-dhparams.pem 2048
 ```
 
 3. Change the `DOMESTICIP` and `DOMESTICDOMAIN` and `YOUREMAIL` in  the following files:
