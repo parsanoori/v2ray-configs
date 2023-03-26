@@ -36,13 +36,13 @@ And on the other side:
 + `./domestic-server-v2ray/docker-compose.yml`
 + `./domestic-server-nginx/templates/home.conf.template`
 
-4. Use `uuidgen` to generate uuid for passwords of the users in files `./domestic-server-v2ray/config.json` and `./foreign-server-v2ray/config.json`. Also pay attention to set the `FOREIGNDOMAIN` and `AFOREIGNSERVERUSERPASSWORD` and `AFOREIGNSERVERUSER` accordingly.     
+5. Use `uuidgen` to generate uuid for passwords of the users in files `./domestic-server-v2ray/config.json` and `./foreign-server-v2ray/config.json`. Also pay attention to set the `FOREIGNDOMAIN` and `AFOREIGNSERVERUSERPASSWORD` and `AFOREIGNSERVERUSER` accordingly.     
 
-4. Comment out the second server block in `./domestic-server-nginx/templates/home.conf.template` and `./domestic-server-nginx/templates/home.conf.template`.
+6. Comment out the second server block in `./domestic-server-nginx/templates/home.conf.template` and `./domestic-server-nginx/templates/home.conf.template`.
 
-5. Copy the files to the `/srv` folder of of the servers.
+7. Copy the files to the `/srv` folder of of the servers.
 
-4. Per each server do:
+8. Per each server do:
 
 + Run the docker-compose of the nginx servers. Which means running the following in the `./{foreign, domestic}-server-v2ray` folders.
 
@@ -62,23 +62,23 @@ Remove the comments on step 4 and run:
 sudo docker-compose down && sudo docker-compose up -d nginx
 ```
 
-7. Run the v2ray per each sever. Which means run the following in the folders `./domestic-server-v2ray` and `./foreign-server-v2ray`:  
+9. Run the v2ray per each sever. Which means run the following in the folders `./domestic-server-v2ray` and `./foreign-server-v2ray`:  
 
 ```
 sudo docker-compose up -d
 ```
 
-8. Set the cronjob in the same folders:
+10. Set the cronjob in the same folders:
 
 ```
 crontab ./crontab
 ```
 
-9. Use `./domestic-server-v2ray/confgen.py` to generate the configs on the domestic server.
+11. Use `./domestic-server-v2ray/confgen.py` to generate the configs on the domestic server.
 
-10. Occasionally use `./domestic-server-v2ray/v2stat.py` to make sure the configs are not spread exponentially.
+12. Occasionally use `./domestic-server-v2ray/v2stat.py` to make sure the configs are not spread exponentially.
 
-11. Pull up your middle finger to those who made this messy shit.
+13. Pull up your middle finger to those who made this messy shit.
 
 
 ## Cloudflare
@@ -86,7 +86,7 @@ crontab ./crontab
 My suggested architecture as following:
 
 ```
-foreign server <-> Cloudflare's CDN <-> domestic server <-> client
+freedom <-> foreign server <-> Cloudflare's CDN <-> domestic server <-> client
 ```
 
 For this you just need to set you FOREIGNDOMAIN'S nameservers to Cloudflare's nameservers and enable be proxy for your subdomain.  
@@ -94,5 +94,15 @@ For this you just need to set you FOREIGNDOMAIN'S nameservers to Cloudflare's na
 **Bonus point BUT sometimes necessiry**: Use the script `./cftest.py` to find the almost suitable Cloudflare's server. Then choose that ip for assigning it to the domain in `/etc/hosts`.  
 
 
+### Features
+ 
++ The domestic server directs Iran's IPs and .ir domains to it's real internet interface. Hence internet banks work.  
++ Stats are stored on a period of 5 minutes  
+
+### TODO
+
++ Make it more user friendly by using `envsubst`. So that the   
++ Automation of Bunos point using cronjob.
++ Shell script for minimal setup.
 
 
