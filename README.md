@@ -89,7 +89,10 @@ My suggested architecture as following:
 foreign server <-> Cloudflare's CDN <-> domestic server <-> client
 ```
 
-For this you just need to set you FOREIGNDOMAIN'S nameservers to Cloudflare's nameservers and enable be proxy for your subdomain.
+For this you just need to set you FOREIGNDOMAIN'S nameservers to Cloudflare's nameservers and enable be proxy for your subdomain.  
+
+**Bonus point BUT sometimes necessiry**: Use the script `./cftest.py` to find the almost suitable Cloudflare's server. Then choose that ip for assigning it to the domain in `/etc/hosts`.  
+
 
 
 
